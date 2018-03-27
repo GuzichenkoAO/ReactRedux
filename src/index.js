@@ -1,11 +1,20 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 
-//Хранилище - объект который содержит сосотяние
-const store = createStore(playlist);
+import App from './App';
+import './index.css';
 
-//Функция которую мы передаем в хранилище и которая реагирует на изменение стора. Ога возвращает состояние стора
-function playlist(state = [], action) {
+const initialState = [
+    'Smells like teen spirit',
+    'Enter Sandman'
+];
+
+function playlist(state = initialState, action) {
+
     if (action.type === 'ADD_TRACK') {
+
         return [
             ...state,
             action.playload
@@ -14,26 +23,38 @@ function playlist(state = [], action) {
     return state;
 }
 
-const list = document.querySelectorAll('.list')[0];
-const trackInput = document.querySelectorAll('.trackInput')[0];
-const addTrackBtn = document.querySelectorAll('.addTrack')[0];
+//Хранилище - объект который содержит сосотяние
+const store = createStore(playlist);
 
-
-//подписываемся на изменение стора, и передаем функцию коллбэк которая вызывается при изменении стора
-store.subscribe(() => {
-    console.log('subscribe', store.getState());
-    list.innerHTML = '';
-    trackInput.value = '';
-        store.getState().forEach(track => {
-            const li = document.createElement('li');
-            li.textContent = track;
-            list.appendChild(li)
-        })
-    }
+//Функция которую мы передаем в хранилище и которая реагирует на изменение стора. Ога возвращает состояние стора
+ReactDOM.render(
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+    document.getElementById('root')
 );
 
-//Привязываем создание екшина при нажатии на кнопку
-addTrackBtn.addEventListener('click', () => {
-    const trackName = trackInput.value;
-    store.dispatch({type: 'ADD_TRACK', playload: trackName});
-});
+//
+// const list = document.querySelectorAll('.list')[0];
+// const trackInput = document.querySelectorAll('.trackInput')[0];
+// const addTrackBtn = document.querySelectorAll('.addTrack')[0];
+//
+//
+// //подписываемся на изменение стора, и передаем функцию коллбэк которая вызывается при изменении стора
+// store.subscribe(() => {
+//     console.log('subscribe', store.getState());
+//     list.innerHTML = '';
+//     trackInput.value = '';
+//         store.getState().forEach(track => {
+//             const li = document.createElement('li');
+//             li.textContent = track;
+//             list.appendChild(li)
+//         })
+//     }
+// );
+//
+// //Привязываем создание екшина при нажатии на кнопку
+// addTrackBtn.addEventListener('click', () => {
+//     const trackName = trackInput.value;
+//     store.dispatch({type: 'ADD_TRACK', playload: trackName});
+// });
