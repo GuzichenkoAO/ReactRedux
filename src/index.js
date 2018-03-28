@@ -11,13 +11,13 @@ const initialState = [
     'Enter Sandman'
 ];
 
-function playlist(state = initialState, action) {
+function playlist(action, state = initialState) {
 
     if (action.type === 'ADD_TRACK') {
 
         return [
             ...state,
-            action.playload
+            action.payload
         ];
     }
     return state;
