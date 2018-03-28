@@ -2,26 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
+import {playlist} from './reducers/TrackReducer'
 
 import App from './App';
 import './index.css';
-
-const initialState = [
-    'Smells like teen spirit',
-    'Enter Sandman'
-];
-
-function playlist(action, state = initialState) {
-
-    if (action.type === 'ADD_TRACK') {
-
-        return [
-            ...state,
-            action.payload
-        ];
-    }
-    return state;
-}
 
 //Хранилище - объект который содержит сосотяние
 const store = createStore(playlist);

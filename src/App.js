@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 
 class App extends Component {
   addTrack() {
-    console.log("add Track", this.trackInput.value);
     this.props.onAddTrack(this.trackInput.value);
     this.trackInput.value = "";
   }
@@ -16,7 +15,7 @@ class App extends Component {
         }}/>
         <button onClick={this.addTrack.bind(this)}>Add track</button>
         <ul>
-          {this.props.testStore.map((track, index) =>
+          {this.props.store.map((track, index) =>
             <li key={index}>{track}</li>
           )}
         </ul>
@@ -27,11 +26,11 @@ class App extends Component {
 
 export default connect(
   state => ({
-    testStore: state
+    store: state
   }),
   dispatch => ({
     onAddTrack: (trackName) => {
-      dispatch({type: 'ADD_TRACK', payload: trackName})
+      dispatch({type: 'ADD_TRACK', playload: trackName})
     }
   })
 )(App);
